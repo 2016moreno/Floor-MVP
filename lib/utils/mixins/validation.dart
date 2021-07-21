@@ -12,6 +12,7 @@ validateLastName(value) {
   }
   return null;
 }
+
 validateLocation(value) {
   if (value == null || value.isEmpty) {
     return 'Please provide your last name';
@@ -29,25 +30,27 @@ validateEmail(value) {
   return null;
 }
 
+//Fixed password requirement, for now only set it so you only need one capital letter and one digit
 var pass;
 validatePassword(value) {
   pass = value;
-  // Pattern pattern =
-  //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
-  // RegExp regex = new RegExp(pattern);
-  // if (value.isEmpty) {
-  //   return 'Please enter your password';
-  // } else if (!regex.hasMatch(value) || value.isEmpty) {
-  //   return 'Please enter strong password with alteast one upper letter, number and special character';
-  // } else if (value.length < 6) {
-  //   return "Password must be atleast 6 characters long or more";
-  // }
+  Pattern pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+
+  RegExp regex = new RegExp(pattern);
+  if (value.isEmpty) {
+    return 'Please enter a password';
+  } else if (!regex.hasMatch(value)) {
+    return 'Password requirements: 1 captial letter, special character and number required Min legnth: 8';
+  } else if (value.length < 8) {
+    return "Password must be atleast 6 characters long or more";
+  }
 }
 
 validateConfirmPassword(value) {
   if (value.isEmpty) {
-    return 'Please enter your password';
+    return 'Please enter a password';
   } else if (value != pass) {
-    return "password not match !";
+    return "Passwords do not match";
   }
 }
